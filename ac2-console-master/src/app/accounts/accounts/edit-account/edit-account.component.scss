@@ -1,0 +1,37 @@
+::ng-deep {
+  .cdk-overlay-pane {
+    max-width: 100%;
+    width: 586px;
+  }
+}
+
+.red-color {
+  color: #f82e2e;
+}
+
+.yellow-color {
+  color: #dede03;
+}
+
+.green-color {
+  color: green;
+}
+
+.error {
+  font-size: 12px;
+}
+
+.empty-field {
+  border: 1px solid red;
+}
+
+@media only screen and (max-width: 1366px) {
+  .mr-m-lap3 {
+    margin-right: 15px;
+  }
+}
+::ng-deep {
+  .mat-dialog-container {
+    padding: 0px;
+  }
+}

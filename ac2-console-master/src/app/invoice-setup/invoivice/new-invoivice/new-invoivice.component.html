@@ -1,0 +1,93 @@
+<div style="padding: 24px;">
+  <h4 class="d-flex align-items-center justify-content-between mb-4">
+    invoicing scheduler setup
+    <i class="material-icons light-color" mat-dialog-close="mat-dialog-close"
+      >close</i
+    >
+  </h4>
+
+  <div class="modal-body-scroll row">
+    <div class="col-md-6">
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Select Company <span class="text-danger">*</span></label
+        >
+        <select
+          class="form-control "
+          (change)="selectCompany($event)"
+          [ngClass]="{ 'empty-field': errorCompnay == '' }"
+        >
+          <option disabled>Select Comapnay</option>
+          <option *ngFor="let item of companyList" value="{{ item.id }}">{{
+            item.name
+          }}</option>
+        </select>
+      </div>
+
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Allowed Employee Licenses <span class="text-danger">*</span></label
+        >
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="obj.allowedEmployeeLicense"
+          placeholder="Enter Allowed Employee Licenses"
+          [ngClass]="{ 'empty-field': errorAllowedEmployeeLicences == '' }"
+        />
+      </div>
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Invoice Term <span class="text-danger">*</span></label
+        >
+        <select
+          class="form-control "
+          [ngClass]="{ 'empty-field': errorInvoiceTerm == '' }"
+          (change)="selectInvoiceTerm($event)"
+        >
+          <option disabled>Select Invoice Term</option>
+          <option
+            *ngFor="let item of invoiceTermList"
+            value="{{ item.value }}"
+            >{{ item.key }}</option
+          >
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Customer ID <span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="obj.customerId"
+          placeholder="Enter Customer Id"
+          [ngClass]="{ 'empty-field': errorCutomerId == '' }"
+        />
+      </div>
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Cost Per Seat <span class="text-danger">*</span></label
+        >
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="obj.costPerSear"
+          placeholder="Enter Cost Per Seat"
+          [ngClass]="{ 'empty-field': errorCostPerSeat == '' }"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="text-right pt-3 mr-m-lap3">
+    <button class="btn btn-danger" mat-dialog-close="mat-dialog-close">
+      Cancel
+    </button>
+    <button class="btn btn-primary ml-3" (click)="save()">
+      Save
+    </button>
+  </div>
+</div>

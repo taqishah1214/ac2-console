@@ -1,0 +1,114 @@
+#!groovy
+pipeline {
+  agent {
+    label 'OnBuild || internal || angular-OnBuild'
+  }
+  options { timestamps () }
+  stages {
+    stage('Clone') {
+      steps {
+        checkout scm
+        script {
+          timestamps {
+            sendChangeLogs()
+          }
+        }
+      }
+    }
+    stage('Init') {
+      steps {
+        script {
+          sh '''
+echo GIT_BRANCH: ${GIT_BRANCH} > build_info.md
+echo GIT_COMMIT: ${GIT_COMMIT} >> build_info.md
+echo GIT_AUTHOR_NAME: ${GIT_AUTHOR_NAME} >> build_info.md
+
+echo BUILD_URL: ${BUILD_URL} >> build_info.md
+echo NODE_NAME: ${NODE_NAME} >> build_info.md
+echo BUILD_TIME: ${IMAGE_BUILD_TIMESTAMP} >> build_info.md
+echo CONSOLE_IMAGE_URL: ${CONSOLE_IMAGE_URL} >> build_info.md
+echo ACTIVE_TAG: ${ACTIVE_TAG} >> build_info.md
+'''
+        }
+      }
+    }
+
+    stage('Build') {
+      steps {
+        script {
+          dockerImage = docker.build("${MTR_CONSOLE_IMAGE}:${ACTIVE_TAG}", "--rm --no-cache --build-arg HQ_API_URL=${HQ_API_URL} --build-arg IGNORE_API_PREFIX=1 .")
+        }
+      }
+    }
+
+    stage('Publish') {
+      steps {
+        script {
+          docker.withRegistry( DOCKERHUB_URL, 'mtr3-dockerhub' ) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
+  }
+  environment {
+    DOCKERHUB_URL = 'https://dockerhub.infra.mytechreports.dev'
+    LATEST_TAG = 'latest'
+    GIT_COMMIT_TAG = env.GIT_COMMIT.take(7)
+
+    ACTIVE_TAG = "${"${GIT_BRANCH}" == 'origin/master' ? "${GIT_COMMIT_TAG}" : "${LATEST_TAG}"}"
+
+    IMAGE_BUILD_TIMESTAMP = (new Date()).format('EEE, MMMM dd,yy hh:mm:ss a')
+
+    MTR_CONSOLE_IMAGE = 'mtr3/hq/web'
+    DOCKER_REGISTERY_URL = 'dockerhub.infra.mytechreports.dev'
+
+    CONSOLE_IMAGE_URL = "${DOCKER_REGISTERY_URL}/${MTR_CONSOLE_IMAGE}:${ACTIVE_TAG}"
+
+    HQ_API_URL = './'
+    slackCredentialId = 'slack-bot'
+  }
+  post {
+    success {
+      sh " docker rmi ${MTR_CONSOLE_IMAGE}:${ACTIVE_TAG} || echo 'All Good!!!' "
+      sh " docker rmi ${CONSOLE_IMAGE_URL} || echo 'All Good!!!' "
+      //sh 'docker rmi $(docker images -q -f dangling=true) || echo "All Good!!!"'
+
+      slackSend(color: '#006400',
+        message: "DockerImages: ${CONSOLE_IMAGE_URL} \n" +
+        ' build successfully.',
+        tokenCredentialId: 'slack-bot')
+    }
+
+    failure {
+      slackSend(
+        color: '#FF0000',
+        message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})",
+        tokenCredentialId: 'slack-bot')
+    }
+
+    always {
+      echo 'Happy Coding.'
+      slackSend(
+            color: '#a0a0a0',
+            message: "Completed: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL}).",
+            tokenCredentialId: 'slack-bot')
+    }
+  }
+}
+
+@NonCPS
+def sendChangeLogs() {
+  def commitMessages = ''
+  def changeLogSets = currentBuild.changeSets
+  for (int i = 0; i < changeLogSets.size(); i++) {
+    def entries = changeLogSets[i].items
+    for (int j = 0; j < entries.length; j++) {
+      def entry = entries[j]
+      commitMessages = commitMessages + "${entry.author} ${entry.commitId}:\n${new Date(entry.timestamp)}: *${entry.msg}*\n"
+    }
+  }
+  slackSend(color: '#ffa500',
+        message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL}) \n ChangeLog:\n ${commitMessages}"
+     )
+}

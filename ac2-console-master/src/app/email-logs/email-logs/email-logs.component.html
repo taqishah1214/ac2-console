@@ -1,0 +1,145 @@
+<div class="title-section my-2">
+  <h4 class="d-flex align-items-center mb-1">
+    <!-- <i class="material-icons mr-2 light-color cursor">
+      keyboard_backspace
+    </i> -->
+    Email Log
+  </h4>
+</div>
+<div class="row mx-0 mt-3 mb-3 rounded-top border bg-white p-3">
+  <div class="col-md-6 dropdown-fix">
+    <div class="form-group ">
+      <label>Select Tenant</label>
+      <ng-select
+        [items]="tenantsList"
+        bindValue="id"
+        bindLabel="tenancyName"
+        name="tenantName"
+        [(ngModel)]="selectedTenant"
+      >
+        <ng-option *ngFor="let item of tenantsList" [value]="item.id"
+          >{{ item.tenancyName }}
+        </ng-option>
+      </ng-select>
+    </div>
+  </div>
+  <div class="col-md-6 dropdown-fix">
+    <div class="form-group dropdown-fix">
+      <label>Select Report Type</label>
+      <ng-select
+        [items]="reports"
+        bindValue="value"
+        bindLabel="key"
+        name="reportName"
+        [(ngModel)]="selectedReportId"
+      >
+      </ng-select>
+    </div>
+  </div>
+  <div class="col-md-6 dropdown-fix">
+    <div class="form-group">
+      <label>Select Email Type</label>
+      <ng-select
+        bindValue="id"
+        bindLabel="name"
+        name="emailTypeList"
+        [(ngModel)]="selectedEmailId"
+      >
+        <ng-option *ngFor="let item of emailTypeList" [value]="item.id"
+          >{{ item.name }}
+        </ng-option>
+      </ng-select>
+    </div>
+  </div>
+
+  <div class="col-md-7 d-flex flex-wrap">
+    <mat-form-field appearance="outline">
+      <mat-label>From</mat-label>
+      <input
+        readonly
+        matInput
+        [matDatepicker]="startPicker"
+        [(ngModel)]="endDate"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="startPicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #startPicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="margin-left: 10px;">
+      <mat-label>To</mat-label>
+      <input
+        readonly
+        matInput
+        [matDatepicker]="endPicker"
+        [(ngModel)]="startDate"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="endPicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #endPicker></mat-datepicker>
+    </mat-form-field>
+    <div style="margin-top: 14px;">
+      <button (click)="apply()" class="btn btn-primary ml-3">
+        Apply
+      </button>
+    </div>
+  </div>
+</div>
+<!-- <div style="margin-top: 14px;">
+    <button (click)="apply()" class="btn btn-primary ml-3">
+      Apply
+    </button>
+  </div>
+</div> -->
+<div class="search-wrapper px-0 ">
+  <div class="d-flex align-items-center justify-content-between">
+    <div class="search mr-auto">
+      <i class="fa fa-search"></i>
+      <input
+        type="text"
+        placeholder="search"
+        (input)="onSearchChange($event)"
+        id="searchValue"
+      />
+    </div>
+  </div>
+</div>
+<div class="border rounded-top bg-white p-3">
+  <div class="table-box table-email">
+    <table class="table mb-0 table-bordered rounded" id="pdfContent" #TABLE>
+      <thead>
+        <tr>
+          <th>Email Subject Line</th>
+          <th>Date Created</th>
+          <th>Date Sent</th>
+          <th>Sent By</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of emails">
+          <td>{{ item.subject }}</td>
+          <td>{{ item.createdDate }}</td>
+          <td>{{ item.sentDate }}</td>
+          <td>{{ item.sentBy }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination to be added-->
+
+  <div *ngIf="count > 0">
+    <app-pagination
+      #pageComp
+      [pageSize]="pageSize"
+      (page)="page($event)"
+      [currentPage]="currentPage"
+      [pages]="pages"
+      [count]="count"
+      [perPageCount]="perPageCount"
+    ></app-pagination>
+  </div>
+</div>

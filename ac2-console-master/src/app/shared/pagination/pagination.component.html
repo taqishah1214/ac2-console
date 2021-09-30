@@ -1,0 +1,58 @@
+<div class="pagination-box mt-4">
+  <div class="actions-btns  content-center text-center">
+    <nav aria-label="page-pagination">
+      <ul class="pagination justify-content-center">
+        <li class="page-item">
+          <a
+            (click)="pageNumber(1)"
+            class="page-link text-primary"
+            disabled="true"
+            >First</a
+          >
+        </li>
+        <li *ngIf="currentPage == 1" class="page-item disabled">
+          <span class="page-link">Previous</span>
+        </li>
+        <li *ngIf="currentPage > 1" class="page-item">
+          <a class="page-link text-primary" (click)="previousPage()"
+            >Previous</a
+          >
+        </li>
+
+        <ng-container *ngFor="let num of paginationNumbers">
+          <li *ngIf="currentPage != num && pages >= num" class="page-item">
+            <a
+              (click)="pageNumber(num)"
+              class="page-link text-primary"
+              style="cursor: default"
+              >{{ num }}</a
+            >
+          </li>
+          <li
+            *ngIf="currentPage == num && pages >= num"
+            class="page-item active"
+          >
+            <a class="page-link " style="cursor: default">{{ currentPage }}</a>
+          </li>
+        </ng-container>
+
+        <li *ngIf="currentPage >= pages" class="page-item disabled">
+          <span class="page-link">Next</span>
+        </li>
+
+        <li *ngIf="pages > currentPage" class="page-item">
+          <a (click)="nextPage()" class="page-link text-primary">Next</a>
+        </li>
+        <li class="page-item ">
+          <a (click)="pageNumber(pages)" class="page-link text-primary">Last</a>
+        </li>
+        <!-- <li class="page-item  ml-5">
+          <a class="page-link "
+            >{{ (currentPage - 1) * pageSize + 1 }} ...
+            {{ (currentPage - 1) * pageSize + perPageCount }}</a
+          >
+        </li> -->
+      </ul>
+    </nav>
+  </div>
+</div>

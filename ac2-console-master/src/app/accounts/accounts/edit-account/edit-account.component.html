@@ -1,0 +1,174 @@
+<div style="padding: 24px;">
+  <h4 class="d-flex align-items-center justify-content-between mb-4">
+    Edit Account
+    <i class="material-icons light-color" mat-dialog-close="mat-dialog-close"
+      >close</i
+    >
+  </h4>
+
+  <div class="modal-body-scroll row">
+    <div class="col-md-6">
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Company Name <span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="obj.tenancyName"
+          placeholder="Enter Company Name"
+          [ngClass]="{ 'empty-field': obj.tenancyName == '' }"
+          disabled="true"
+        />
+      </div>
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Account Owners Email <span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="obj.accountOwnersEmail"
+          placeholder="Enter Account Owners Email"
+          [ngClass]="{ 'empty-field': obj.accountOwnersEmail == '' }"
+        />
+      </div>
+
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Account Owners Phone <span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="obj.accountOwnersPhone"
+          placeholder="Enter Account Owner Phone"
+          [ngClass]="{ 'empty-field': obj.accountOwnersPhone == '' }"
+        />
+      </div>
+
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Account Owners City <span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="obj.accountOwnersCity"
+          placeholder="Enter Owners City"
+          [ngClass]="{ 'empty-field': obj.accountOwnersCity == '' }"
+        />
+      </div>
+
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Account Owners Zip <span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="obj.accountOwnersZip"
+          placeholder="Enter Owners Zip Code"
+          [ngClass]="{ 'empty-field': obj.accountOwnersZip == '' }"
+        />
+      </div>
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Allowed Employee Licenses <span class="text-danger">*</span></label
+        >
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="obj.allowedEmployeeLicenses"
+          placeholder="Enter Allowed Employee Licenses"
+          [ngClass]="{ 'empty-field': errorallowedEmployeeLicenses == '' }"
+        />
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Account Owners Name <span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="obj.name"
+          placeholder="Enter Account Owner Name"
+          [ngClass]="{ 'empty-field': obj.name == '' }"
+        />
+      </div>
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Account Owners Username <span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="obj.accountOwnerUserName"
+          placeholder="Enter Account Owners Username"
+          [ngClass]="{ 'empty-field': obj.accountOwnerUserName == '' }"
+        />
+      </div>
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Account Owners Address <span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="obj.accountOwnersAddress"
+          placeholder="Enter Account Owners Address"
+          [ngClass]="{ 'empty-field': obj.accountOwnersAddress == '' }"
+        />
+      </div>
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Account Owners State <span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="obj.accountOwnersState"
+          placeholder="Enter Owners State"
+          [ngClass]="{ 'empty-field': obj.accountOwnersState == '' }"
+        />
+      </div>
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Advantage Account # <span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="obj.advantageAccountNo"
+          placeholder="Enter Advantage Account Number"
+          [ngClass]="{ 'empty-field': obj.advantageAccountNo == '' }"
+        />
+      </div>
+      <div class="form-group">
+        <label class="mb-1"
+          >Start Date <span class="text-danger">*</span>
+        </label>
+        <div>
+          <input
+            class="form-control"
+            type="date"
+            [(ngModel)]="obj.startDate"
+            [ngClass]="{ 'empty-field': errorStartDate == '' }"
+            disabled="true"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-right pt-3 mr-m-lap3">
+    <button class="btn btn-danger" mat-dialog-close="mat-dialog-close">
+      Cancel
+    </button>
+    <button class="btn btn-primary ml-3" (click)="save()">
+      Save
+    </button>
+  </div>
+</div>

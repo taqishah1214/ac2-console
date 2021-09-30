@@ -1,0 +1,81 @@
+<div style="padding: 24px;">
+  <h4 class="d-flex align-items-center justify-content-between mb-4">
+    Edit invoicing scheduler setup
+    <i class="material-icons light-color" mat-dialog-close="mat-dialog-close"
+      >close</i
+    >
+  </h4>
+
+  <div class="modal-body-scroll row">
+    <div class="col-md-6">
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Company Name <span class="text-danger">*</span></label
+        >
+        <select class="form-control " (change)="selectCompany($event)">
+          <option disabled>{{ companyName }}</option>
+        </select>
+      </div>
+
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Allowed Employee Licenses <span class="text-danger">*</span></label
+        >
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="obj.allowedEmployeeLicense"
+          placeholder="Enter  Allowed Employee Licenses"
+        />
+      </div>
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Invoice Term <span class="text-danger">*</span></label
+        >
+        <select class="form-control " (change)="selectInvoiceTerm($event)">
+          <option disabled>{{ invoiceTermKey }}</option>
+          <ng-container *ngFor="let item of invoiceTermList">
+            <option
+              *ngIf="obj.invoicingTermEnum != item.value"
+              value="{{ item.value }}"
+              >{{ item.key }}</option
+            >
+          </ng-container>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Customer ID <span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="obj.customerId"
+          placeholder="Enter Customer Id"
+        />
+      </div>
+      <div class="form-group mb-2">
+        <label class="mb-2"
+          >Cost Per Seat <span class="text-danger">*</span></label
+        >
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="obj.costPerSear"
+          placeholder="Enter  Cost Per Seat"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="text-right pt-3 mr-m-lap3">
+    <button class="btn btn-danger" mat-dialog-close="mat-dialog-close">
+      Cancel
+    </button>
+    <button class="btn btn-primary ml-3" (click)="save()">
+      Save
+    </button>
+  </div>
+</div>

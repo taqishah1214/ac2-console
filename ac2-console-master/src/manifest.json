@@ -1,0 +1,21 @@
+{
+  "name": "MTR",
+  "short_name": "MTR",
+  "theme_color": "#488aff",
+  "background_color": "#488aff",
+  "scope": "/",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "assets/mtr-logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/mtr-logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

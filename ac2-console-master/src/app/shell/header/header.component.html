@@ -1,0 +1,87 @@
+<header>
+  <div class="container">
+    <a href="/accounts"
+      ><img src="../../../assets/header-logo.png" alt="Logo"
+    /></a>
+    <nav>
+      <ul>
+        <li>
+          <a routerLink="/accounts" routerLinkActive="active">Accounts</a>
+        </li>
+        <li>
+          <a routerLink="/invoice" routerLinkActive="active">Invoice Setup</a>
+        </li>
+        <li>
+          <a routerLink="/email-logs" routerLinkActive="active">Email Logs</a>
+        </li>
+        <li>
+          <a routerLink="/invoice-list" routerLinkActive="active"
+            >Invoice List</a
+          >
+        </li>
+        <!-- <li>
+          <a routerLink="/user" routerLinkActive="active">Tools</a>
+        </li> -->
+        <!-- <li><a routerLink="/users" routerLinkActive="active">Users</a></li> -->
+      </ul>
+    </nav>
+
+    <div class="right-clm">
+      <div class="login-info">
+        Last login date:
+        <span>{{ loginDate | date: 'MM/dd/yyyy' }}</span>
+      </div>
+      <!-- <span class="help-icon">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM13.2 20.4H10.8V18H13.2V20.4ZM15.684 11.1L14.604 12.204C14.004 12.816 13.572 13.368 13.356 14.232C13.26 14.616 13.2 15.048 13.2 15.6H10.8V15C10.8 14.448 10.896 13.92 11.064 13.428C11.304 12.732 11.7 12.108 12.204 11.604L13.692 10.092C14.244 9.564 14.508 8.772 14.352 7.932C14.196 7.068 13.524 6.336 12.684 6.096C11.352 5.724 10.116 6.48 9.72 7.62C9.576 8.064 9.204 8.4 8.736 8.4H8.376C7.68 8.4 7.2 7.728 7.392 7.056C7.908 5.292 9.408 3.948 11.268 3.66C13.092 3.372 14.832 4.32 15.912 5.82C17.328 7.776 16.908 9.876 15.684 11.1Z"
+            fill="#CACCCF"
+          />
+        </svg>
+      </span> -->
+      <!-- <span class="notifications">
+        <svg
+          width="19"
+          height="24"
+          viewBox="0 0 19 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9.50019 24C10.7172 24 11.702 23.0065 11.702 21.7786H7.29843C7.29843 23.0065 8.28313 24 9.50019 24ZM18.6724 18.7423L17.2451 17.3023V10.6047C17.2451 6.86512 14.6339 3.73954 11.1598 2.98047V1.67442C11.1598 0.747907 10.4185 0 9.50019 0C8.58187 0 7.84057 0.747907 7.84057 1.67442V2.98047C4.36643 3.73954 1.7553 6.86512 1.7553 10.6047V17.3023L0.328026 18.7423C-0.369014 19.4456 0.117808 20.6512 1.10252 20.6512H17.8868C18.8826 20.6512 19.3694 19.4456 18.6724 18.7423Z"
+            fill="#CACCCF"
+          />
+        </svg>
+      </span> -->
+      <div ngbDropdown="ngbDropdown" display="dynamic" style="cursor: pointer;">
+        <div id="user-dropdown" ngbDropdownToggle="ngbDropdownToggle">
+          <span class="header-logo">
+            <img src="../../assets/User-Default-Logo.png" alt="Logo" />
+          </span>
+
+          <span class="name">
+            {{ username }}
+            <img src="../../assets/dropdown-select-arrow.png" alt="" />
+          </span>
+        </div>
+
+        <div ngbDropdownMenu="ngbDropdownMenu" aria-labelledby="user-dropdown">
+          <h6 class="dropdown-header">
+            <span>Logged in as </span>
+            <b>{{ username }}</b>
+          </h6>
+          <div class="dropdown-divider"></div>
+          <button class="dropdown-item" (click)="logout()">
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

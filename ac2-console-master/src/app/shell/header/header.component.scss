@@ -1,0 +1,23 @@
+.nav-link.dropdown-toggle {
+  cursor: pointer;
+}
+
+.nav-item {
+  color: #000;
+}
+
+.logo {
+  width: 40%;
+}
+.header-logo img {
+  height: 50px;
+  width: auto;
+}
+.login-info {
+  cursor: default;
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+}

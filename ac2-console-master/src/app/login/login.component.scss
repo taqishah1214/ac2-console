@@ -1,0 +1,63 @@
+.ng-invalid.ng-touched:not(form) {
+  border-left: 4px solid theme-color("danger");
+}
+
+a {
+  cursor: pointer;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: #e8e8e8;
+
+  .logo {
+    display: block;
+    margin: 0 auto 10px auto;
+  }
+
+  .wrapper {
+    flex: 0 0 480px;
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .login-modal {
+      padding: 30px;
+      background: #fff;
+      border: 1px solid #e6e6e6;
+      font-weight: 500;
+      border-radius: 10px;
+      box-shadow: 3px 3px 15px 0px rgba(0, 0, 0, 0.2);
+
+      .btn-primary {
+        width: 100%;
+        border-radius: 4px;
+        min-height: 44px;
+      }
+
+      label {
+        color: #a0a4a8;
+        text-transform: uppercase;
+        font-size: 13px;
+        display: block;
+        margin-bottom: 16px;
+      }
+
+      .form-control {
+        border: 1px solid #e8e8e8;
+        box-sizing: border-box;
+        border-radius: 4px;
+        height: 44px;
+        padding-left: 16px;
+
+        &::placeholder {
+          color: #000;
+        }
+      }
+    }
+  }
+}

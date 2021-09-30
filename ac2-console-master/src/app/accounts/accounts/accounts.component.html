@@ -1,0 +1,60 @@
+<div class="title-section">
+  <h4 class="d-flex align-items-center">
+    Company and User Seat List
+    <span class="count">{{ count }}</span>
+  </h4>
+</div>
+<div class="search-wrapper mt-0">
+  <div class="d-flex align-items-center justify-content-between">
+    <div class="search mr-auto">
+      <i class="fa fa-search"></i>
+      <input
+        type="text"
+        placeholder="search"
+        (input)="onSearchChange($event)"
+        id="searchValue"
+      />
+    </div>
+    <button class="btn btn-primary ml-auto d-block" (click)="addItem()">
+      Add Account
+    </button>
+  </div>
+</div>
+<div *ngIf="rowData">
+  <ag-grid-angular
+    style="width: 100%; height: 300px;"
+    class="ag-theme-balham"
+    [gridOptions]="gridOptions"
+  >
+  </ag-grid-angular>
+</div>
+<div *ngIf="count > 0">
+  <app-pagination
+    #pageComp
+    [pageSize]="pageSize"
+    (page)="page($event)"
+    [currentPage]="currentPage"
+    [pages]="pages"
+    [count]="count"
+    [perPageCount]="perPageCount"
+  ></app-pagination>
+</div>
+
+<ng-template #editDeleteCell let-row>
+  <div class="text-right">
+    <i
+      class="first-icon material-icons"
+      data-toggle="tooltip"
+      title="Edit"
+      (click)="editItem(row)"
+      >edit</i
+    >
+    <i
+      class="material-icons mr-0"
+      data-toggle="tooltip"
+      title="Login"
+      (click)="loginItem(row)"
+      >login</i
+    >
+  </div>
+</ng-template>
